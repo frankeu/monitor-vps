@@ -99,7 +99,7 @@ function getDummyData()
 
 function refresh()
 {
-	$.getJSON("api/getData.php?q=wlp5s0", null, function(data) {
+	$.getJSON("api/getData.php", null, function(data) {
 		var time = (new Date()).getTime();
 
 		var cpuload = getCpuLoad(data.CPUDetail);

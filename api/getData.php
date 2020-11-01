@@ -1,5 +1,4 @@
 <?php
-	$interface = (isset($_GET['q']) && !empty($_GET['q']))?$_GET['q']:'eth0';
 	$tmp = null;
 
 	$data = array(
@@ -16,10 +15,9 @@
 			"free" => disk_free_space("/"), 
 			"used" => (disk_total_space("/") - disk_free_space("/"))
 		),
-		"network" => array_map('intval', explode(" ",exec("cat /proc/net/dev | grep '".$interface.":' | awk {'print $2\" \"$3\" \"$10\" \"$11'}"))),
+		"network" => array_map('intval', explode(" ",exec("cat /proc/net/dev | grep '".exec("route | grep '^default' | grep -o '[^ ]*$'").":' | awk {'print $2\" \"$3\" \"$10\" \"$11'}"))),
 		"uptime" => (int)exec("cut -d. -f1 /proc/uptime"),
-		"OS" => exec("cat /etc/*-release | grep 'PRETTY_NAME' | cut -d \\\" -f2"),
-		"interface" => exec("ifconfig -a")
+		"OS" => exec("cat /etc/*-release | grep 'PRETTY_NAME' | cut -d \\\" -f2")
 	);
 
 	exec("cat /proc/cpuinfo | grep -i 'model name\|cpu cores\|cpu mhz'", $tmp);
