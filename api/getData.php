@@ -19,7 +19,7 @@
 		"network" => array_map('intval', explode(" ",exec("cat /proc/net/dev | grep '".$interface.":' | awk {'print $2\" \"$3\" \"$10\" \"$11'}"))),
 		"uptime" => (int)exec("cut -d. -f1 /proc/uptime"),
 		"OS" => exec("cat /etc/*-release | grep 'PRETTY_NAME' | cut -d \\\" -f2"),
-		"interface" => exec("ls /sys/class/net")
+		"interface" => exec("ifconfig -a")
 	);
 
 	exec("cat /proc/cpuinfo | grep -i 'model name\|cpu cores\|cpu mhz'", $tmp);
