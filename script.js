@@ -168,8 +168,12 @@ function getCpuLoad(input)
 }
 
 function formatNumber(number)
-{
-	return number.toLocaleString("nl").replace(/\./g, " ");
+{	
+	if(number!=false){
+		return number.toLocaleString("nl").replace(/\./g, " ");
+	}else{
+		return 0;
+	}
 }
 
 function getTime(seconds) 
