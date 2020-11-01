@@ -4,7 +4,7 @@
 	$data = array(
 		"memory" => array_map(
 			function($value) {
-				return (int)$value / 1000000;
+				return (int)$value / (1000000*1024);
 			},
 			explode(" ", exec("free | grep 'Mem:' | awk {'print $2\" \"$3\" \"$4\" \"$6'}"))
 		),
