@@ -1,6 +1,6 @@
 var mainchart;
 
-var refresh_time = 3;
+var refresh_time = 1;
 
 var prev_total = prev_idle = 0;
 var chart_ram, chart_hdd, chart_cpu;
