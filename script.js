@@ -168,8 +168,7 @@ function getCpuLoad(input)
 }
 
 function formatNumber(number)
-{	
-	console.log(number);
+{
 	if(number == undefined){
 		return '0';
 	}
