@@ -99,7 +99,7 @@ function getDummyData()
 
 function refresh()
 {
-	$.getJSON("api/getData.php", null, function(data) {
+	$.getJSON("api/getData.php?q=wlp5s0", null, function(data) {
 		var time = (new Date()).getTime();
 
 		var cpuload = getCpuLoad(data.CPUDetail);
@@ -111,7 +111,7 @@ function refresh()
 		mainchart.series[1].addPoint([time, parseFloat(currenthdd)], false, true);
 		mainchart.series[2].addPoint([time, parseFloat(currentcpu)], true, true);
 
-		$("#ram .usage").html(formatNumber(data.memory[1]) + " kb<br/>Cache: " + formatNumber(data.memory[3]) + " kb");
+		$("#ram .usage").html(formatNumber(data.memory[1]) + "<br/>Cache: " + formatNumber(data.memory[3]));
 		$("#ram .total").text(formatNumber(data.memory[0]));
 		$("#ram .free").text(formatNumber(data.memory[2]));
 
@@ -172,7 +172,7 @@ function formatNumber(number)
 	if(number == undefined){
 		return '0';
 	}
-	return number.toLocaleString("nl").replace(/\./g, " ");
+	return bytesToSize(number);
 }
 
 function getTime(seconds) 
@@ -189,4 +189,11 @@ function getTime(seconds)
     leftover = leftover - (minutes * 60);
 
     return days + " days, " + hours + " hours, " + minutes + " minutes, " + leftover + " seconds";
+}
+// https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
+function bytesToSize(bytes) {
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes == 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
